@@ -1,0 +1,15 @@
+- rule_id: CORP-OWN-001
+  name: "Foreign Ownership Restriction (DPI)"
+  priority: "CRITICAL"
+  domain: "CORPORATE"
+  description: "Membatasi kepemilikan asing pada sektor KBLI tertentu sesuai Daftar Positif Investasi."
+  trigger:
+    context: "shareholder_management"
+    action_type: "update_equity"
+  condition:
+    kbli_code: "in(['46100', '47111'])" # Contoh kode KBLI retail/perdagangan tertentu
+    shareholder_nationality: "!= 'ID'"
+    proposed_foreign_percentage: "> 49"
+  action:
+    type: "BLOCK"
+    message: "Pelanggaran Regulasi Penanaman Modal: Kepemilikan asing untuk KBLI {{kbli_code}} dibatasi maksimal 49%."

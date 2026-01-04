@@ -1,0 +1,61 @@
+# Rule ID: ETH-COMM-001
+# Name: Client Communication Ethics
+# Domain: PRIVACY (Ethics fallback)
+# Description: Standards for responding to clients, tone of voice, and partner oversight.
+
+- rule_id: ETH-COMM-001
+  name: "Client Communication Response Time"
+  priority: HIGH
+  domain: PRIVACY
+  description: "Lawyers must reply to client messages within 24 hours."
+  trigger:
+    context: "compliance"
+    action_type: "client_communication"
+  condition:
+    response_time_hours: { gt: 24 }
+  action:
+    type: "WARN"
+    message: "Peringatan: Respons terhadap klien melebihi 24 jam. Segera hubungi klien untuk menjaga profesionalisme."
+
+- rule_id: ETH-COMM-002
+  name: "Formal Tone Requirement"
+  priority: MEDIUM
+  domain: PRIVACY
+  description: "Communication with clients must use formal and professional language."
+  trigger:
+    context: "compliance"
+    action_type: "client_communication"
+  condition:
+    tone_is_informal: true
+  action:
+    type: "WARN"
+    message: "Saran: Bahasa yang terdeteksi terlalu informal. Gunakan sapaan resmi dan struktur kalimat profesional."
+
+- rule_id: ETH-COMM-003
+  name: "Partner Oversight for Legal Advice"
+  priority: CRITICAL
+  domain: PRIVACY
+  description: "No final legal advice without Partner approval."
+  trigger:
+    context: "compliance"
+    action_type: "legal_advice_delivery"
+  condition:
+    partner_approved: false
+    is_final_advice: true
+  action:
+    type: "BLOCK"
+    message: "Blokir: Saran hukum final tidak dapat dikirimkan tanpa persetujuan Partner. Silakan ajukan review ke Partner terlebih dahulu."
+
+- rule_id: ETH-COMM-004
+  name: "Communication Data Encryption"
+  priority: CRITICAL
+  domain: PRIVACY
+  description: "All communication data must be encrypted according to UU PDP."
+  trigger:
+    context: "compliance"
+    action_type: "client_communication"
+  condition:
+    is_encrypted: false
+  action:
+    type: "BLOCK"
+    message: "Blokir Keamanan: Data komunikasi tidak terenkripsi. Sesuai UU PDP No. 27/2022, seluruh data klien wajib dilindungi dengan standar enkripsi LH-STD-SEC."

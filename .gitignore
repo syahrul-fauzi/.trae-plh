@@ -1,0 +1,29 @@
+# 1. File sistem dan lingkungan
+.DS_Store
+Thumbs.db
+.env
+.env.local
+*.log
+
+# 2. Direktori dependensi
+node_modules/
+vendor/
+__pycache__/
+
+# 3. File build dan output
+/dist/
+/build/
+*.class
+*.exe
+
+# 4. File editor/IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 5. File spesifik proyek
+*.db
+*.sqlite
+/.cache/
+/coverage/

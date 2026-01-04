@@ -1,0 +1,35 @@
+# Authorization Hierarchy for AI Agents
+# Defines the levels of control and safety guardrails
+
+levels:
+  - id: 0
+    name: "Hard Safety Guardrails"
+    description: "Non-negotiable constraints for data sovereignty and privacy."
+    rules:
+      - "Larangan transmisi data PII tanpa enkripsi."
+      - "Wajib masking data sensitif untuk LLM eksternal."
+    enforcement: "BLOCK"
+
+  - id: 1
+    name: "Jurisdictional & Ethical Compliance"
+    description: "Alignment with Indonesian laws and legal ethics."
+    rules:
+      - "Kepatuhan pada UU PDP dan UU ITE."
+      - "Referensi wajib ke hirarki perundang-undangan RI."
+    enforcement: "BLOCK"
+
+  - id: 2
+    name: "Operational Autonomy Rules"
+    description: "Limits on tool usage and confidence thresholds."
+    rules:
+      - "Confidence Score minimum 0.85."
+      - "Batasan akses database produksi."
+    enforcement: "ESCALATE"
+
+  - id: 3
+    name: "Dynamic Contextual Rules"
+    description: "Case-specific instructions from human lawyers."
+    rules:
+      - "Pendekatan mediasi vs litigasi."
+      - "Yurisdiksi spesifik (misal: PN Jakarta Pusat)."
+    enforcement: "WARN"

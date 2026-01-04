@@ -1,0 +1,13 @@
+# .trae/rules/core/privacy_and_security/pii_handling.yaml
+rule_id: LGL-PRIV-001
+name: "PII Sanitization Requirement"
+priority: HIGH
+trigger:
+  context: "ai_processing"
+  data_type: "client_data"
+condition:
+  contains_pii: true
+action:
+  type: "ENFORCE_MASKING"
+  methods: ["AES-256", "REDACTION"]
+  message: "Data mengandung PII. Penyamaran data (masking) wajib dilakukan sebelum pemrosesan LLM."

@@ -1,0 +1,13 @@
+# .trae/rules/domains/corporate_law/pks_standard.yaml
+rule_id: LGL-CORP-001
+name: "Standard PKS Clauses (Indonesian Law)"
+priority: HIGH
+trigger:
+  context: "contract_analysis"
+  template_type: "pks"
+condition:
+  jurisdiction: "Indonesia"
+action:
+  type: "VALIDATE_MANDATORY_CLAUSES"
+  required_clauses: ["Wanprestasi", "Arbitrase", "Force Majeure", "Penyelesaian Sengketa"]
+  message: "Sesuai standar hukum Indonesia, PKS wajib mencantumkan klausul Wanprestasi dan Penyelesaian Sengketa."

@@ -1,0 +1,12 @@
+# .trae/rules/core/agent_behaviors/escalation_protocols.yaml
+rule_id: LGL-ESC-001
+name: "High Risk Legal Clause Detection"
+priority: CRITICAL
+trigger:
+  context: "contract_drafting"
+  risk_factors: ["limitation_of_liability", "indemnity_cap_exceeded"]
+condition:
+  risk_score: "> 0.8"
+action:
+  type: "MANDATORY_HUMAN_REVIEW"
+  message: "Klausul risiko tinggi terdeteksi. Diperlukan review manual oleh Senior Partner."
