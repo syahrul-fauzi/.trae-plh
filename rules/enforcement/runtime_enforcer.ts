@@ -31,8 +31,24 @@ export class RuleEngine {
   private rulesPath: string;
 
   constructor(customPath?: string) {
-    this.rulesPath = customPath || path.join(process.cwd(), '.trae/rules');
+    this.rulesPath = customPath || this.findRulesPath();
     this.loadRules();
+  }
+
+  private findRulesPath(): string {
+    let currentDir = process.cwd();
+    const root = path.parse(currentDir).root;
+
+    while (currentDir !== root) {
+      const potentialPath = path.join(currentDir, '.trae/rules');
+      if (fs.existsSync(potentialPath)) {
+        return potentialPath;
+      }
+      currentDir = path.dirname(currentDir);
+    }
+
+    // Fallback to original behavior if not found
+    return path.join(process.cwd(), '.trae/rules');
   }
 
   private loadRules() {

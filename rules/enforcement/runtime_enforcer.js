@@ -7,8 +7,20 @@ const yaml = require("js-yaml");
 class RuleEngine {
     constructor(customPath) {
         this.rules = [];
-        this.rulesPath = customPath || path.join(process.cwd(), '.trae/rules');
+        this.rulesPath = customPath || this.findRulesPath();
         this.loadRules();
+    }
+    findRulesPath() {
+        let currentDir = process.cwd();
+        const root = path.parse(currentDir).root;
+        while (currentDir !== root) {
+            const potentialPath = path.join(currentDir, '.trae/rules');
+            if (fs.existsSync(potentialPath)) {
+                return potentialPath;
+            }
+            currentDir = path.dirname(currentDir);
+        }
+        return path.join(process.cwd(), '.trae/rules');
     }
     loadRules() {
         try {
