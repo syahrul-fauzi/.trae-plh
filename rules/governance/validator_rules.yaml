@@ -1,0 +1,29 @@
+rule_id: G-10-A
+name: Rule Header Validation
+priority: HIGH
+domain: Governance
+description: Ensures all rule files have mandatory headers.
+trigger:
+  context: rule_validation
+condition:
+  all:
+    - has_id: true
+    - has_category: true
+    - has_version: true
+    - has_last_updated: true
+action:
+  type: BLOCK
+  message: "Rule Validation Error: Missing mandatory header fields (ID, Category, Version, or Last_Updated)."
+---
+rule_id: G-10-B
+name: Rule File Size Constraint
+priority: MEDIUM
+domain: Governance
+description: Enforces maximum file size for rule files.
+trigger:
+  context: rule_validation
+condition:
+  file_size: { gt: 1000 }
+action:
+  type: WARN
+  message: "Rule File Size Warning: Rule files should be kept under 1000 characters for optimal performance and modularity."

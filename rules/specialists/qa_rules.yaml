@@ -1,0 +1,32 @@
+rule_id: S-05-A
+name: Unit Test Coverage Requirement
+priority: HIGH
+domain: QA
+version: 1.1.0
+last_updated: 2026-01-08
+description: Ensures minimum unit test coverage of 80%.
+trigger:
+  context: pull_request
+condition:
+  all:
+    - coverage_below_80: true
+action:
+  type: WARN
+message: "QA Warning: Unit test coverage is below the 80% threshold. Please add more tests."
+---
+rule_id: S-05-B
+name: Critical Flow E2E Check
+priority: HIGH
+domain: QA
+version: 1.1.0
+last_updated: 2026-01-08
+description: Ensures critical flows have E2E tests.
+trigger:
+  context: release
+condition:
+  all:
+    - is_critical_flow: true
+    - has_e2e_test: false
+action:
+  type: BLOCK
+message: "QA Violation: Critical flow missing E2E test. Release blocked until coverage is added."

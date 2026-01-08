@@ -1,0 +1,33 @@
+rule_id: S-03-A
+name: PII Masking Enforcement
+priority: CRITICAL
+domain: Security
+version: 1.1.0
+last_updated: 2026-01-08
+description: Ensures that PII data is masked via AI Gateway.
+trigger:
+  context: data_processing
+condition:
+  all:
+    - contains_pii: true
+    - masking_applied: false
+action:
+  type: BLOCK
+message: "Security Violation: PII detected without masking. Please route through AI Gateway for anonymization."
+---
+rule_id: S-03-B
+name: Tenant Isolation Check
+priority: CRITICAL
+domain: Security
+version: 1.1.0
+last_updated: 2026-01-08
+description: Ensures RLS is active for the current tenant.
+trigger:
+  context: db_access
+condition:
+  all:
+    - has_tenant_context: true
+    - rls_enabled: false
+action:
+  type: BLOCK
+message: "Security Violation: Database access attempted without active RLS context."

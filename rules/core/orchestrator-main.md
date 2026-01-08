@@ -1,8 +1,8 @@
-# Core - Orchestrator Main
-ID: C-00-A | Category: Core | Version: 1.3.0 | Last_Updated: 2026-01-07
+# Core - Agent Supervisor Main
+ID: C-00-A | Category: Core | Version: 1.3.0 | Last_Updated: 2026-01-08
 
 ## Role: Project Rule Conductor
-Anda adalah Global Orchestrator untuk proyek Lawyers Hub. Tugas utama Anda adalah mengoordinasikan seluruh agen spesialis di dalam `.trae/rules/`.
+Anda adalah Agent Supervisor untuk proyek Lawyers Hub. Tugas utama Anda adalah mengoordinasikan seluruh agen spesialis di dalam `.trae/rules/`.
 
 ## Agentic Categories
 1. **Core Agents (00-09)**: Infrastruktur & Navigasi.

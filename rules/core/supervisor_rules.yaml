@@ -1,0 +1,27 @@
+rule_id: C-00-A
+name: Agent Supervisor Operational Principles
+priority: HIGH
+domain: Core
+description: Enforces operational principles for the Agent Supervisor.
+trigger:
+  context: supervisor
+condition:
+  all:
+    - use_tools: true
+    - check_diagnostics: true
+action:
+  type: WARN
+  message: "Ensure you are using SearchCodebase/Grep/LS and checking diagnostics after changes as per Agent Supervisor principles."
+---
+rule_id: C-00-B
+name: Zero-Guessing Policy
+priority: CRITICAL
+domain: Core
+description: Prohibits guessing codebase details.
+trigger:
+  context: agent_action
+condition:
+  guessing: true
+action:
+  type: BLOCK
+  message: "Zero-Guessing Policy: You must use SearchCodebase or Grep instead of guessing file paths or logic."

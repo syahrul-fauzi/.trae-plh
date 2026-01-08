@@ -1,0 +1,65 @@
+rule_id: L-ID-01
+name: Indonesian Legal Jurisdiction Enforcement
+priority: CRITICAL
+domain: Legal
+version: 1.0.0
+last_updated: 2026-01-08
+description: Programmatically enforces the Indonesian legal context for all agentic actions.
+trigger:
+  context: legal_action
+condition:
+  any:
+    - jurisdiction: { ne: "Indonesia" }
+    - language: { not_in: ["id", "en"] }
+action:
+  type: BLOCK
+  message: "Indonesian Jurisdiction Enforcement: All legal actions must be contextualized within Indonesian Law (UU PDP, etc.). Default language must be Indonesian (id) or English (en)."
+---
+rule_id: L-ID-02
+name: UU PDP Data Privacy Compliance
+priority: CRITICAL
+domain: Security
+version: 1.0.0
+last_updated: 2026-01-08
+description: Ensures compliance with Indonesian Personal Data Protection Law (UU No. 27/2022).
+trigger:
+  context: data_processing
+condition:
+  all:
+    - pii_masking: false
+    - tenant_isolation: false
+action:
+  type: BLOCK
+  message: "UU PDP Violation: Personal Data must be masked and tenant isolation must be strictly enforced as per UU No. 27/2022."
+---
+rule_id: L-ID-03
+name: Deterministic Fallback Policy
+priority: HIGH
+domain: Legal
+version: 1.0.0
+last_updated: 2026-01-08
+description: Ensures that codified legal rules override AI suggestions.
+trigger:
+  context: agent_suggestion
+condition:
+  all:
+    - has_conflicting_rule: true
+action:
+  type: BLOCK
+  message: "Deterministic Fallback: Written legal rules take precedence over AI suggestions. Please align with codified regulations."
+---
+rule_id: L-ID-04
+name: Explainable AI Legal Reference Requirement
+priority: MEDIUM
+domain: Legal
+version: 1.0.0
+last_updated: 2026-01-08
+description: Mandates legal references for all AI-generated legal advice.
+trigger:
+  context: legal_advice
+condition:
+  all:
+    - has_legal_reference: false
+action:
+  type: WARN
+  message: "Explainable AI Requirement: All legal advice must include a clear reference to the relevant Indonesian law or regulation."
